@@ -1,3 +1,4 @@
+---
 driver:
   name: dokken
   privileged: true
@@ -26,14 +27,6 @@ platforms:
     driver:
       image: ubuntu:16.04
       pid_one_command: /bin/systemd
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update -qq
-        - RUN /usr/bin/apt-get install -y net-tools apt-transport-https initscripts procps lsb-release curl gnupg
-
-  - name: debian-8
-    driver:
-      image: debian:8.9
-      pid_one_command: /sbin/init
       intermediate_instructions:
         - RUN /usr/bin/apt-get update -qq
         - RUN /usr/bin/apt-get install -y net-tools apt-transport-https initscripts procps lsb-release curl gnupg
@@ -97,4 +90,25 @@ suites:
     driver:
       chef_version: 13.3.42
     run_list:
+      - recipe[sssd::default]
+
+  - name: jumpcloud
+    driver:
+      chef_version: 13.3.42
+    run_list:
+      - recipe[sssd-test::jumpcloud]
+      - recipe[sssd::default]
+
+  - name: freeipa
+    driver:
+      chef_version: 13.3.42
+    run_list:
+      - recipe[sssd-test::freeipa]
+      - recipe[sssd::default]
+
+  - name: awsdirectory
+    driver:
+      chef_version: 13.3.42
+    run_list:
+      - recipe[sssd-test::awsdirectory]
       - recipe[sssd::default]
