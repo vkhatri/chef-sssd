@@ -1,0 +1,62 @@
+# man sssd.conf
+
+[sssd]
+<% sssd_config(@sssd).each do |k, v| %>
+<%=  k %>=<%= v %>
+<% end %>
+
+<% if @services.include?('nss') %>
+[nss]
+<% sssd_config(@nss).each do |k, v| %>
+<%=  k %>=<%= v %>
+<% end %>
+<% end %>
+
+<% if @services.include?('pam') %>
+[pam]
+<% sssd_config(@pam).each do |k, v| %>
+<%=  k %>=<%= v %>
+<% end %>
+<% end %>
+
+<% if @services.include?('ssh') %>
+[ssh]
+<% sssd_config(@ssh).each do |k, v| %>
+<%=  k %>=<%= v %>
+<% end %>
+<% end %>
+
+<% if @services.include?('sudo') %>
+[sudo]
+<% sssd_config(@sudo).each do |k, v| %>
+<%=  k %>=<%= v %>
+<% end %>
+<% end %>
+
+<% if @services.include?('autofs') %>
+[autofs]
+<% sssd_config(@autofs).each do |k, v| %>
+<%=  k %>=<%= v %>
+<% end %>
+<% end %>
+
+<% if @services.include?('pac') %>
+[pac]
+<% sssd_config(@pac).each do |k, v| %>
+<%=  k %>=<%= v %>
+<% end %>
+<% end %>
+
+<% if @services.include?('ifp') %>
+[ifp]
+<% sssd_config(@ifp).each do |k, v| %>
+<%=  k %>=<%= v %>
+<% end %>
+<% end %>
+
+<% @domains.each do |domain, opts| %>
+[domain/<%= domain -%>]
+<% sssd_config(opts).each do |k, v| %>
+<%=  k %>=<%= v %>
+<% end %>
+<% end %>
